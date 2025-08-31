@@ -1,7 +1,7 @@
 package Nodos;
 
 import Objetos.Habitacion;
-
+//ssa
 
 public class Nodo {
     private Habitacion habitacion;
