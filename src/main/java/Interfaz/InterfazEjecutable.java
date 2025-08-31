@@ -9,7 +9,7 @@ package Interfaz;
  * @author USUARIO
  */
 public class InterfazEjecutable extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InterfazEjecutable.class.getName());
 
     /**
@@ -32,12 +32,11 @@ public class InterfazEjecutable extends javax.swing.JFrame {
         Usuario__ = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPasswordField1 = new javax.swing.JPasswordField();
-        Login = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        Login = new javax.swing.JLabel();
         Bg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(980, 520));
 
         Background.setMinimumSize(new java.awt.Dimension(800, 438));
         Background.setOpaque(false);
@@ -60,9 +59,8 @@ public class InterfazEjecutable extends javax.swing.JFrame {
         });
         Background.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 340, 20));
 
-        Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaz/Sources/Login.png"))); // NOI18N
-        Background.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 540));
-
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -70,7 +68,8 @@ public class InterfazEjecutable extends javax.swing.JFrame {
         });
         Background.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, 160, 50));
 
-        Bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaz/Sources/background.png"))); // NOI18N
+        Login.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Hotel\\src\\main\\java\\Interfaz\\Sources\\Login.png")); // NOI18N
+        Background.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 540));
         Background.add(Bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 540));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -88,7 +87,12 @@ public class InterfazEjecutable extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+
+        // Crear y mostrar la ventana Menu
+        Menu menuVentana = new Menu();
+        menuVentana.setVisible(true);
+        menuVentana.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed

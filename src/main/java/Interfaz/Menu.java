@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Interfaz.Sources;
+package Interfaz;
 
 /**
  *
  * @author USUARIO
  */
 public class Menu extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Menu.class.getName());
 
     /**
@@ -31,14 +31,15 @@ public class Menu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         Reserva_bton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         Hbitaciones_bton = new javax.swing.JButton();
-        Cliente_bton = new javax.swing.JButton();
         Producto_bton = new javax.swing.JButton();
+        Cliente_bton = new javax.swing.JButton();
         Reporte_bton = new javax.swing.JButton();
         Registrar_client = new javax.swing.JButton();
         Registrar_produ = new javax.swing.JButton();
         Registrar_empleado = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,27 +56,67 @@ public class Menu extends javax.swing.JFrame {
         jPanel1.add(Reserva_bton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 70, 70));
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, -1, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaz/Sources/Frame 3_1.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        Hbitaciones_bton.setText("jButton1");
+        Hbitaciones_bton.setText("1");
+        Hbitaciones_bton.setBorderPainted(false);
+        Hbitaciones_bton.setContentAreaFilled(false);
+        Hbitaciones_bton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Hbitaciones_btonActionPerformed(evt);
+            }
+        });
         jPanel1.add(Hbitaciones_bton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 70, 70));
 
-        Cliente_bton.setText("jButton1");
-        jPanel1.add(Cliente_bton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 233, 70, 60));
-
-        Producto_bton.setText("jButton1");
+        Producto_bton.setBorderPainted(false);
+        Producto_bton.setContentAreaFilled(false);
+        Producto_bton.setOpaque(false);
+        Producto_bton.setRequestFocusEnabled(false);
         jPanel1.add(Producto_bton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 353, 70, 60));
+
+        Cliente_bton.setBorderPainted(false);
+        Cliente_bton.setContentAreaFilled(false);
+        jPanel1.add(Cliente_bton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, 70, 70));
+
+        Reporte_bton.setBorderPainted(false);
+        Reporte_bton.setContentAreaFilled(false);
         jPanel1.add(Reporte_bton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 353, 70, 60));
 
-        Registrar_client.setText("jButton1");
-        jPanel1.add(Registrar_client, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 70, 30));
+        Registrar_client.setBorderPainted(false);
+        Registrar_client.setContentAreaFilled(false);
+        Registrar_client.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Registrar_clientActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Registrar_client, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 70, 20));
 
-        Registrar_produ.setText("jButton1");
-        jPanel1.add(Registrar_produ, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 93, -1, 20));
+        Registrar_produ.setBorderPainted(false);
+        Registrar_produ.setContentAreaFilled(false);
+        Registrar_produ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Registrar_produActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Registrar_produ, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 93, 80, 20));
 
-        Registrar_empleado.setText("jButton1");
+        Registrar_empleado.setBorderPainted(false);
+        Registrar_empleado.setContentAreaFilled(false);
+        Registrar_empleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Registrar_empleadoActionPerformed(evt);
+            }
+        });
         jPanel1.add(Registrar_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 80, 20));
+
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setDefaultCapable(false);
+        jButton1.setFocusable(false);
+        jButton1.setOpaque(false);
+        jButton1.setRequestFocusEnabled(false);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, 70, 80));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Hotel\\src\\main\\java\\Interfaz\\Sources\\Frame 3_1.png")); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,6 +135,22 @@ public class Menu extends javax.swing.JFrame {
     private void Reserva_btonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reserva_btonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Reserva_btonActionPerformed
+
+    private void Registrar_produActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registrar_produActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Registrar_produActionPerformed
+
+    private void Registrar_clientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registrar_clientActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Registrar_clientActionPerformed
+
+    private void Registrar_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registrar_empleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Registrar_empleadoActionPerformed
+
+    private void Hbitaciones_btonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Hbitaciones_btonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Hbitaciones_btonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,6 +186,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton Registrar_produ;
     private javax.swing.JButton Reporte_bton;
     private javax.swing.JButton Reserva_bton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

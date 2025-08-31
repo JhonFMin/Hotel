@@ -1,5 +1,6 @@
 package Interfaz;
 
+import Nodos.Logica;
 import Objetos.Cliente;
 import Objetos.Habitacion;
 import java.time.LocalDate;

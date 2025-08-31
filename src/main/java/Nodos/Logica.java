@@ -1,4 +1,4 @@
-package Interfaz;
+package Nodos;
 
 import Objetos.Cliente;
 import Objetos.Habitacion;
