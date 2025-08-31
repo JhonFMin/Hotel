@@ -68,7 +68,7 @@ public class InterfazEjecutable extends javax.swing.JFrame {
         });
         Background.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, 160, 50));
 
-        Login.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Hotel\\src\\main\\java\\Interfaz\\Sources\\Login.png")); // NOI18N
+        Login.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\HotelApp\\Hotel\\src\\main\\java\\Interfaz\\Sources\\Login.png")); // NOI18N
         Background.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 540));
         Background.add(Bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 540));
 
@@ -76,11 +76,17 @@ public class InterfazEjecutable extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();

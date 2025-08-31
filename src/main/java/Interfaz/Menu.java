@@ -43,8 +43,6 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         Reserva_bton.setBorderPainted(false);
         Reserva_bton.setContentAreaFilled(false);
         Reserva_bton.setFocusPainted(false);
@@ -53,8 +51,6 @@ public class Menu extends javax.swing.JFrame {
                 Reserva_btonActionPerformed(evt);
             }
         });
-        jPanel1.add(Reserva_bton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 70, 70));
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, -1, -1));
 
         Hbitaciones_bton.setText("1");
         Hbitaciones_bton.setBorderPainted(false);
@@ -64,21 +60,16 @@ public class Menu extends javax.swing.JFrame {
                 Hbitaciones_btonActionPerformed(evt);
             }
         });
-        jPanel1.add(Hbitaciones_bton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 70, 70));
 
         Producto_bton.setBorderPainted(false);
         Producto_bton.setContentAreaFilled(false);
-        Producto_bton.setOpaque(false);
         Producto_bton.setRequestFocusEnabled(false);
-        jPanel1.add(Producto_bton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 353, 70, 60));
 
         Cliente_bton.setBorderPainted(false);
         Cliente_bton.setContentAreaFilled(false);
-        jPanel1.add(Cliente_bton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, 70, 70));
 
         Reporte_bton.setBorderPainted(false);
         Reporte_bton.setContentAreaFilled(false);
-        jPanel1.add(Reporte_bton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 353, 70, 60));
 
         Registrar_client.setBorderPainted(false);
         Registrar_client.setContentAreaFilled(false);
@@ -87,7 +78,6 @@ public class Menu extends javax.swing.JFrame {
                 Registrar_clientActionPerformed(evt);
             }
         });
-        jPanel1.add(Registrar_client, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 70, 20));
 
         Registrar_produ.setBorderPainted(false);
         Registrar_produ.setContentAreaFilled(false);
@@ -96,7 +86,6 @@ public class Menu extends javax.swing.JFrame {
                 Registrar_produActionPerformed(evt);
             }
         });
-        jPanel1.add(Registrar_produ, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 93, 80, 20));
 
         Registrar_empleado.setBorderPainted(false);
         Registrar_empleado.setContentAreaFilled(false);
@@ -105,24 +94,80 @@ public class Menu extends javax.swing.JFrame {
                 Registrar_empleadoActionPerformed(evt);
             }
         });
-        jPanel1.add(Registrar_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 80, 20));
 
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         jButton1.setDefaultCapable(false);
         jButton1.setFocusable(false);
-        jButton1.setOpaque(false);
         jButton1.setRequestFocusEnabled(false);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, 70, 80));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Hotel\\src\\main\\java\\Interfaz\\Sources\\Frame 3_1.png")); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(Registrar_client, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(250, 250, 250)
+                .addComponent(jLabel1))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(Registrar_produ, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(Registrar_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(Reserva_bton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
+                .addComponent(Hbitaciones_bton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
+                .addComponent(Cliente_bton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(Producto_bton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
+                .addComponent(Reporte_bton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addGap(60, 60, 60)
+                .addComponent(Registrar_client, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1)
+                .addGap(13, 13, 13)
+                .addComponent(Registrar_produ, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(Registrar_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Reserva_bton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Hbitaciones_bton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Cliente_bton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Producto_bton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Reporte_bton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
