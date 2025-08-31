@@ -5,8 +5,7 @@ import Objetos.Cliente;
 import Nodos.Nodo;
 
 /**
- * Implementación de Lista Doblemente Enlazada Circular para gestionar habitaciones
- * @author USUARIO
+//dsds
  */
 public class Listas {
     private Nodo cabeza;
