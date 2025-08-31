@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Interfaz;
-
-/**
+import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;/**
  *
  * @author USUARIO
  */
@@ -16,8 +17,14 @@ public class Menu extends javax.swing.JFrame {
      * Creates new form Menu
      */
     public Menu() {
-        initComponents();
+         setUndecorated(true); 
+       
+    initComponents();    
+    setLocationRelativeTo(null);
+
+
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,21 +35,114 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        exitBtn = new javax.swing.JPanel();
+        exitTxt = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 642, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 70, 20));
+
+        jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton4.setBorderPainted(false);
+        jButton4.setContentAreaFilled(false);
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 610, 130, 130));
+
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 60, 20));
+
+        jButton6.setBorderPainted(false);
+        jButton6.setContentAreaFilled(false);
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 100, 20));
+
+        jButton7.setBorderPainted(false);
+        jButton7.setContentAreaFilled(false);
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 60, 20));
+
+        jButton3.setBorderPainted(false);
+        jButton3.setContentAreaFilled(false);
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 610, 120, 130));
+
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 610, 130, 140));
+
+        exitBtn.setBackground(new java.awt.Color(255, 255, 255));
+        exitBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        exitBtn.setDoubleBuffered(false);
+        exitBtn.setEnabled(false);
+        exitBtn.setFocusable(false);
+        exitBtn.setOpaque(false);
+
+        exitTxt.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
+        exitTxt.setForeground(new java.awt.Color(255, 0, 0));
+        exitTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        exitTxt.setText("X");
+        exitTxt.setBorder(new javax.swing.border.MatteBorder(null));
+        exitTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitTxt.setPreferredSize(new java.awt.Dimension(40, 40));
+        exitTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exitTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exitTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout exitBtnLayout = new javax.swing.GroupLayout(exitBtn);
+        exitBtn.setLayout(exitBtnLayout);
+        exitBtnLayout.setHorizontalGroup(
+            exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(exitTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+        exitBtnLayout.setVerticalGroup(
+            exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(exitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE)
         );
+
+        getContentPane().add(exitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 10, 30, 30));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Hotel\\src\\main\\java\\Interfaz\\Sources\\Menú Principal_1.png")); // NOI18N
+        jLabel2.setToolTipText("");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void exitTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseExited
+        exitBtn.setBackground(Color.white);
+        exitTxt.setForeground(Color.black);
+    }//GEN-LAST:event_exitTxtMouseExited
+
+    private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
+        exitBtn.setBackground(Color.red);
+        exitTxt.setForeground(Color.white);
+    }//GEN-LAST:event_exitTxtMouseEntered
+
+    private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_exitTxtMouseClicked
 
     /**
      * @param args the command line arguments
@@ -70,5 +170,16 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel exitBtn;
+    private javax.swing.JLabel exitTxt;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
