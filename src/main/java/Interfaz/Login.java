@@ -283,7 +283,6 @@ public class Login extends javax.swing.JFrame {
         loginBtnTxt = new javax.swing.JLabel();
         logoname = new javax.swing.JLabel();
         citybg = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Hotel\\src\\main\\java\\Interfaz\\Sources\\2e.png")); // NOI18N
@@ -294,7 +293,7 @@ public class Login extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        bg.setBackground(new java.awt.Color(0, 0, 0));
+        bg.setBackground(new java.awt.Color(15, 23, 36));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         header.setBackground(new java.awt.Color(255, 255, 255));
@@ -483,9 +482,6 @@ public class Login extends javax.swing.JFrame {
         citybg.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         bg.add(citybg, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 370, 500));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Hotel\\src\\main\\java\\Interfaz\\Sources\\ds.png")); // NOI18N
-        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 840, 460));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -622,7 +618,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel exitTxt;
     private javax.swing.JLabel favicon;
     private javax.swing.JPanel header;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel loginBtn;
