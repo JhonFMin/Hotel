@@ -57,6 +57,11 @@ public class Menu extends javax.swing.JFrame {
         jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 610, 130, 130));
 
         jButton5.setBorderPainted(false);
@@ -141,8 +146,17 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_exitTxtMouseEntered
 
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
-        System.exit(0);
+       this.dispose();
+      Login login = new Login();
+        login.setVisible(true);
+        login.setLocationRelativeTo(null);
     }//GEN-LAST:event_exitTxtMouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+  this.dispose();
+      Reservas reservas = new Reservas();
+        reservas.setVisible(true);
+        reservas.setLocationRelativeTo(null);    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
