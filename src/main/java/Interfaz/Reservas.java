@@ -1,40 +1,159 @@
 package Interfaz;
 
-import java.awt.Color;
-import javax.swing.*;
-import java.awt.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 import Nodos.Logica;
-import Objetos.Habitacion;
 import Objetos.Cliente;
-import java.text.SimpleDateFormat;
+import Objetos.Habitacion;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 
-/**
- *
- *
- * @author USUARIO
- */
 public class Reservas extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Reservas.class.getName());
-
-    private Logica logicaHotel;
+    private final Logica logicaHotel;
     private DefaultTableModel modeloTabla;
 
-    public Reservas() {
+    public Reservas(Logica logicaHotel) {
         setUndecorated(true);
-
         initComponents();
         setLocationRelativeTo(null);
-        // Inicializar la lógica del hotel
+        this.logicaHotel = logicaHotel;
+        personalizarTabla();
+        actualizarTabla();
+        configurarSeleccionTabla();
+    }
 
+    // AÑADIDO: Constructor por defecto para que el diseñador de NetBeans funcione.
+    public Reservas() {
+        setUndecorated(true);
+        initComponents();
+        setLocationRelativeTo(null);
+        this.logicaHotel = new Logica(); 
+        personalizarTabla();
+        actualizarTabla();
+        configurarSeleccionTabla();
+    }
+    
+    // MÉTODO COMPLETAMENTE REDISEÑADO
+    private void personalizarTabla() {
+        // --- COLORES PRINCIPALES ---
+        Color colorFondo = new Color(30, 39, 46);
+        Color colorTexto = new Color(223, 223, 223);
+        Color colorCabeceraFondo = new Color(45, 52, 54);
+        Color colorCabeceraTexto = new Color(193, 170, 97); // Dorado
+        Color colorGrid = new Color(60, 60, 60);
+        Color colorSeleccionFondo = new Color(193, 170, 97); // Dorado
+        Color colorSeleccionTexto = Color.BLACK;
+        Color colorFilaAlterna = new Color(40, 49, 56);
+
+        // --- ESTILOS BÁSICOS DE LA TABLA ---
+        Tabla.setBackground(colorFondo);
+        Tabla.setForeground(colorTexto);
+        Tabla.setGridColor(colorGrid);
+        Tabla.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        Tabla.setRowHeight(35);
+        Tabla.setSelectionBackground(colorSeleccionFondo);
+        Tabla.setSelectionForeground(colorSeleccionTexto);
+        Tabla.setShowVerticalLines(false); // Opcional: para un look más limpio
+
+        // --- ESTILO DE LA CABECERA (HEADER) ---
+        JTableHeader header = Tabla.getTableHeader();
+        header.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        header.setOpaque(false);
+        header.setBackground(colorCabeceraFondo);
+        header.setForeground(colorCabeceraTexto);
+        header.setReorderingAllowed(false); // Evita que se puedan mover las columnas
+        
+        // --- ESTILO DEL SCROLLPANE QUE CONTIENE LA TABLA ---
+        jScrollPane1.getViewport().setBackground(colorFondo); // Fondo del área visible
+        jScrollPane1.setBorder(BorderFactory.createEmptyBorder()); // Sin borde
+
+        // --- RENDERIZADOR PERSONALIZADO PARA FILAS (ESTILO CEBRA) ---
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Configura el padding y la alineación
+                setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+                setHorizontalAlignment(JLabel.CENTER);
+
+                // Lógica de colores para filas alternas (estilo cebra)
+                if (!isSelected) {
+                    setBackground(row % 2 == 0 ? colorFondo : colorFilaAlterna);
+                }
+                
+                return this;
+            }
+        };
+
+        // Aplicar el renderizador a todas las columnas
+        for (int i = 0; i < Tabla.getColumnCount(); i++) {
+            Tabla.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
     }
 
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    public void actualizarTabla() {
+        modeloTabla = (DefaultTableModel) Tabla.getModel();
+        modeloTabla.setRowCount(0);
+
+        Habitacion[] habitaciones = logicaHotel.obtenerTodasLasHabitaciones();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (Habitacion hab : habitaciones) {
+            Object[] fila = new Object[6];
+            fila[0] = hab.getNumero();
+
+            if (hab.estaDisponible()) {
+                fila[1] = "Disponible";
+                fila[2] = "—";
+                fila[3] = "—";
+                fila[4] = "—";
+                fila[5] = "—";
+            } else {
+                fila[1] = "Ocupada";
+                Cliente cliente = hab.getCliente();
+                if (cliente != null) {
+                    fila[2] = cliente.getNombre();
+                    fila[3] = cliente.getId();
+                    fila[4] = cliente.getFechaIngreso().format(formatter);
+                    fila[5] = cliente.getFechaSalida().format(formatter);
+                }
+            }
+            modeloTabla.addRow(fila);
+        }
+    }
+    
+    // ... El resto de tu código (initComponents, botones, etc.) ...
+
+    //<editor-fold defaultstate="collapsed" desc="Generated Code">
+    private void configurarSeleccionTabla() {
+        jButton4.setEnabled(false);
+        jButton1.setEnabled(false);
+        ListSelectionModel selectionModel = Tabla.getSelectionModel();
+        selectionModel.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    boolean filaSeleccionada = Tabla.getSelectedRow() != -1;
+                    jButton4.setEnabled(filaSeleccionada);
+                    jButton1.setEnabled(filaSeleccionada);
+                }
+            }
+        });
+    }
     private void initComponents() {
 
         jButton2 = new javax.swing.JButton();
@@ -44,7 +163,7 @@ public class Reservas extends javax.swing.JFrame {
         exitBtn = new javax.swing.JPanel();
         exitTxt = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,27 +197,26 @@ public class Reservas extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 140, 190, 90));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 140, 180, 90));
 
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 140, 190, 90));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 140, 180, 90));
 
         exitBtn.setBackground(new java.awt.Color(255, 255, 255));
-        exitBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        exitBtn.setDoubleBuffered(false);
-        exitBtn.setEnabled(false);
-        exitBtn.setFocusable(false);
         exitBtn.setOpaque(false);
 
         exitTxt.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
         exitTxt.setForeground(new java.awt.Color(255, 0, 0));
         exitTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exitTxt.setText("X");
-        exitTxt.setBorder(new javax.swing.border.MatteBorder(null));
         exitTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        exitTxt.setPreferredSize(new java.awt.Dimension(40, 40));
         exitTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 exitTxtMouseClicked(evt);
@@ -115,180 +233,108 @@ public class Reservas extends javax.swing.JFrame {
         exitBtn.setLayout(exitBtnLayout);
         exitBtnLayout.setHorizontalGroup(
             exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(exitTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+            .addComponent(exitTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
         exitBtnLayout.setVerticalGroup(
             exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(exitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE)
+            .addComponent(exitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
         );
 
         getContentPane().add(exitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 10, 30, 30));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+                "# Habitación", "Estado", "Nombre", "Identificación", "Fecha de ingreso", "Fecha de Salida"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 1340, 500));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(Tabla);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 1350, 500));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Hotel\\src\\main\\java\\Interfaz\\Sources\\Recepcion.png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-
-    private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
-        this.dispose();
-        Menu menu = new Menu();
-        menu.setVisible(true);
-        menu.setLocationRelativeTo(null);
-    }//GEN-LAST:event_exitTxtMouseClicked
-
-    private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
+    }// </editor-fold>
+    private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {
+     this.dispose();
+        Menu ventanaMenu = new Menu(this.logicaHotel);
+        ventanaMenu.setVisible(true);
+        ventanaMenu.setLocationRelativeTo(null);
+    }
+    private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {
         exitBtn.setBackground(Color.red);
         exitTxt.setForeground(Color.white);
-    }//GEN-LAST:event_exitTxtMouseEntered
-
-    private void exitTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseExited
+    }
+    private void exitTxtMouseExited(java.awt.event.MouseEvent evt) {
         exitBtn.setBackground(Color.white);
         exitTxt.setForeground(Color.black);
-    }//GEN-LAST:event_exitTxtMouseExited
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    }
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
-        Nueva_Reserva nuevares = new Nueva_Reserva();
+        Nueva_Reserva nuevares = new Nueva_Reserva(this.logicaHotel);
         nuevares.setVisible(true);
         nuevares.setLocationRelativeTo(null);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Asumiendo que existe una ventana 'Buscar'
+        // Buscar buscar = new Buscar(this.logicaHotel);
+        // buscar.setVisible(true);
+        // buscar.setLocationRelativeTo(null);
+    }
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+        int selectedRow = Tabla.getSelectedRow();
+        if (selectedRow != -1) {
+            int numeroHabitacion = (int) Tabla.getValueAt(selectedRow, 0);
+             // Asumiendo que existe una ventana 'Modificar_Reserva'
+            // Modificar_Reserva modificarres = new Modificar_Reserva(this.logicaHotel, numeroHabitacion);
+            // modificarres.setVisible(true);
+            // modificarres.setLocationRelativeTo(null);
+        }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        int selectedRow = Tabla.getSelectedRow();
+        if (selectedRow != -1) {
+            int numeroHabitacion = (int) Tabla.getValueAt(selectedRow, 0);
+            String nombreCliente = String.valueOf(Tabla.getValueAt(selectedRow, 2));
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
-        Buscar buscar = new Buscar();
-        buscar.setVisible(true);
-        buscar.setLocationRelativeTo(null);    }//GEN-LAST:event_jButton2ActionPerformed
+            if (nombreCliente == null || nombreCliente.isEmpty() || nombreCliente.equals("—")) {
+                JOptionPane.showMessageDialog(this, "Esta habitación no tiene una reserva activa para eliminar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-  this.dispose();
-        Modificar_Reserva modificarres = new  Modificar_Reserva();
-        modificarres.setVisible(true);
-        modificarres.setLocationRelativeTo(null);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+            int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Estás seguro de que deseas eliminar la reserva de '" + nombreCliente + "' en la habitación " + numeroHabitacion + "?\nEsta acción equivale a un Check-Out.",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
 
-    /**
-     *
-     * @param args
-     */
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                Cliente clienteSaliente = logicaHotel.realizarCheckOut(numeroHabitacion);
+
+                if (clienteSaliente != null) {
+                    JOptionPane.showMessageDialog(this, "Reserva eliminada con éxito (Check-Out realizado).", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    actualizarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error: No se pudo eliminar la reserva.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -299,14 +345,15 @@ public class Reservas extends javax.swing.JFrame {
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Reservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Reservas().setVisible(true));
+        
+        java.awt.EventQueue.invokeLater(() -> {
+            new Reservas(new Logica()).setVisible(true);
+        });
     }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify
+    private javax.swing.JTable Tabla;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JButton jButton1;
@@ -315,6 +362,6 @@ public class Reservas extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration
 }
+//</editor-fold>
