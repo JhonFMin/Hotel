@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Interfaz;
 
+import Interfaz.Habitaciones;
+import Interfaz.Reportes;
+import Interfaz.Reservas;
 import java.awt.Color;
-import javax.swing.*;
-import java.awt.*;
-
-// NUEVO: Importaciones de la lógica del hotel y la librería de gráficos.
+import javax.swing.JPanel;
+import java.awt.GridLayout;
 import Nodos.Logica;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -28,120 +25,106 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class Menu extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Menu.class.getName());
-
-    // NUEVO: Instancia de la clase Logica para acceder a los datos del hotel.
+    // Instancia de la clase Logica para acceder a los datos del hotel.
     private Logica logicaHotel;
 
     /**
-     * Creates new form Menu
+     * Constructor por defecto: Crea una nueva instancia de la lógica. Se usa
+     * cuando la aplicación arranca por primera vez.
      */
     public Menu() {
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
-
-        // NUEVO: Inicializamos la lógica del hotel.
-        logicaHotel = new Logica();
-
-        // NUEVO: Llamamos a los métodos para poblar la interfaz con datos reales.
+        this.logicaHotel = new Logica();
         actualizarTarjetas();
         crearYMostrarGraficos();
     }
 
-    // NUEVO: Método para actualizar los valores de las tarjetas superiores.
+    /**
+     * CORREGIDO: Constructor que recibe una instancia existente de la lógica.
+     * Se usa para navegar entre ventanas sin perder los datos.
+     */
+    public Menu(Logica logicaHotel) {
+        setUndecorated(true);
+        initComponents();
+        setLocationRelativeTo(null);
+        this.logicaHotel = logicaHotel;
+        actualizarTarjetas();
+        crearYMostrarGraficos();
+    }
+
+    /**
+     * Actualiza los valores de las tarjetas superiores con datos de la lógica.
+     */
     private void actualizarTarjetas() {
-        // Formateador para los valores monetarios
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("es", "CO"));
         currencyFormatter.setMaximumFractionDigits(0);
 
-        // Actualizamos cada JLabel con la información de la lógica
-        totalHab.setText(String.valueOf(logicaHotel.getNumeroHabitaciones()));
+        totalHab.setText(String.valueOf(logicaHotel.getTotalHabitaciones()));
         habRe.setText(String.valueOf(logicaHotel.getHabitacionesOcupadas()));
         habDis1.setText(String.valueOf(logicaHotel.getHabitacionesDisponibles()));
 
-        // Formateamos el total de ventas como moneda
         String ventasFormateadas = currencyFormatter.format(logicaHotel.getFacturacionAcumulada());
         totalVen.setText(ventasFormateadas);
-
-        // Ajustamos el tamaño de la fuente si el texto es muy largo
-        if (ventasFormateadas.length() > 6) {
-            totalVen.setFont(new java.awt.Font("Dialog", 0, 30));
-        } else {
-            totalVen.setFont(new java.awt.Font("Dialog", 0, 48));
-        }
     }
 
-    // NUEVO: Método para crear los dos gráficos y añadirlos a la ventana.
+    /**
+     * Crea los dos gráficos y los añade a la ventana.
+     */
     private void crearYMostrarGraficos() {
-        // 1. Creamos el gráfico de pastel
         JFreeChart pieChart = crearGraficoPastel();
         ChartPanel pieChartPanel = new ChartPanel(pieChart);
-        pieChartPanel.setOpaque(false); // Hacemos el fondo del panel transparente
+        pieChartPanel.setOpaque(false);
 
-        // 2. Creamos el gráfico de barras
         JFreeChart barChart = crearGraficoBarras();
         ChartPanel barChartPanel = new ChartPanel(barChart);
-        barChartPanel.setOpaque(false); // Hacemos el fondo del panel transparente
+        barChartPanel.setOpaque(false);
 
-        // 3. Creamos un panel contenedor para los dos gráficos
-        JPanel panelGraficos = new JPanel(new GridLayout(1, 2, 20, 0)); // 1 fila, 2 columnas, con 20px de espacio
-        panelGraficos.setOpaque(false); // Panel principal transparente
+        JPanel panelGraficos = new JPanel(new GridLayout(1, 2, 20, 0));
+        panelGraficos.setOpaque(false);
         panelGraficos.add(pieChartPanel);
         panelGraficos.add(barChartPanel);
 
-        // 4. Añadimos el panel de gráficos al contentPane con AbsoluteLayout
         getContentPane().add(panelGraficos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 1000, 300));
     }
 
-    // NUEVO: Método que genera el gráfico de pastel de ocupación.
+    /**
+     * Genera el gráfico de pastel de ocupación.
+     */
     private JFreeChart crearGraficoPastel() {
         DefaultPieDataset dataset = new DefaultPieDataset();
         dataset.setValue("Ocupadas", logicaHotel.getHabitacionesOcupadas());
         dataset.setValue("Disponibles", logicaHotel.getHabitacionesDisponibles());
 
-        JFreeChart chart = ChartFactory.createPieChart(
-                "Ocupación de Habitaciones", // Título
-                dataset,
-                true, // Incluir leyenda
-                true,
-                false);
+        JFreeChart chart = ChartFactory.createPieChart("Ocupación de Habitaciones", dataset, true, true, false);
 
-        // Personalización para que coincida con tu tema oscuro
-        chart.setBackgroundPaint(null); // Fondo del gráfico transparente
+        chart.setBackgroundPaint(null);
         chart.getTitle().setPaint(Color.WHITE);
         chart.getLegend().setBackgroundPaint(new Color(30, 30, 30));
         chart.getLegend().setItemPaint(Color.WHITE);
 
         PiePlot plot = (PiePlot) chart.getPlot();
-        plot.setBackgroundPaint(null); // Fondo del área del gráfico transparente
-        plot.setLabelGenerator(null); // Sin etiquetas en las porciones
-        plot.setSectionPaint("Ocupadas", new Color(3, 138, 255)); // Azul
-        plot.setSectionPaint("Disponibles", new Color(0, 184, 148)); // Verde
-        plot.setOutlineVisible(false); // Sin bordes
+        plot.setBackgroundPaint(null);
+        plot.setLabelGenerator(null);
+        plot.setSectionPaint("Ocupadas", new Color(3, 138, 255));
+        plot.setSectionPaint("Disponibles", new Color(0, 184, 148));
+        plot.setOutlineVisible(false);
         plot.setShadowPaint(null);
 
         return chart;
     }
 
-    // NUEVO: Método que genera el gráfico de barras de ingresos.
+    /**
+     * Genera el gráfico de barras de ingresos.
+     */
     private JFreeChart crearGraficoBarras() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        String totalFacturado = "Facturación Total";
-        dataset.addValue(logicaHotel.getFacturacionAcumulada(), "Ingresos", totalFacturado);
+        dataset.addValue(logicaHotel.getFacturacionAcumulada(), "Ingresos", "Facturación Total");
 
-        JFreeChart chart = ChartFactory.createBarChart(
-                "Ingresos del Hotel", // Título
-                "Concepto", // Etiqueta eje X
-                "Monto (COP)", // Etiqueta eje Y
-                dataset,
-                PlotOrientation.VERTICAL,
-                false, // Sin leyenda
-                true,
-                false);
+        JFreeChart chart = ChartFactory.createBarChart("Ingresos del Hotel", "Concepto", "Monto (COP)", dataset, PlotOrientation.VERTICAL, false, true, false);
 
-        // Personalización para el tema oscuro
-        chart.setBackgroundPaint(null); // Fondo transparente
+        chart.setBackgroundPaint(null);
         chart.getTitle().setPaint(Color.WHITE);
 
         CategoryPlot plot = chart.getCategoryPlot();
@@ -149,25 +132,17 @@ public class Menu extends javax.swing.JFrame {
         plot.setRangeGridlinePaint(Color.GRAY);
         plot.setOutlineVisible(false);
 
-        // Color de los ejes
         plot.getDomainAxis().setTickLabelPaint(Color.WHITE);
         plot.getDomainAxis().setLabelPaint(Color.WHITE);
         plot.getRangeAxis().setTickLabelPaint(Color.WHITE);
         plot.getRangeAxis().setLabelPaint(Color.WHITE);
 
-        // Color de las barras
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setSeriesPaint(0, new Color(255, 118, 117)); // Rojo claro
-        
+        renderer.setSeriesPaint(0, new Color(255, 118, 117));
+
         return chart;
     }
 
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -317,73 +292,69 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseExited
+    private void exitTxtMouseExited(java.awt.event.MouseEvent evt) {
         exitBtn.setBackground(Color.white);
         exitTxt.setForeground(Color.black);
-    }//GEN-LAST:event_exitTxtMouseExited
+    }
 
-    private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
+    private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {
         exitBtn.setBackground(Color.red);
         exitTxt.setForeground(Color.white);
-    }//GEN-LAST:event_exitTxtMouseEntered
+    }
 
-    private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
-       System.exit(0); // MODIFICADO: Salir de la aplicación completamente.
-    }//GEN-LAST:event_exitTxtMouseClicked
+    private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {
+                this.dispose();
+        // Le pasa la "memoria" actual a la siguiente ventana
+        Login login = new Login(this.logicaHotel);
+        login.setVisible(true); 
+        login.setLocationRelativeTo(null);
+    }
 
-    private void reservas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservas1ActionPerformed
+    private void reservas1ActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
-        // MODIFICADO: Pasamos la instancia de la lógica a la siguiente ventana.
-        Reservas reservas = new Reservas(this.logicaHotel); // Deberás modificar el constructor de Reservas
-        reservas.setVisible(true);
-        reservas.setLocationRelativeTo(null);
-    }//GEN-LAST:event_reservas1ActionPerformed
+        // Le pasa la "memoria" actual a la siguiente ventana
+        Reservas ventanaReservas = new Reservas(this.logicaHotel);
+        ventanaReservas.setVisible(true);
+        ventanaReservas.setLocationRelativeTo(null);
+    }
 
-    private void habitaciones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_habitaciones1ActionPerformed
+    private void habitaciones1ActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
-        Habitaciones habitaciones = new Habitaciones();
+        Habitaciones habitaciones = new Habitaciones(this.logicaHotel);
         habitaciones.setVisible(true);
         habitaciones.setLocationRelativeTo(null);
-    }//GEN-LAST:event_habitaciones1ActionPerformed
+    }
 
-    private void reportes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportes1ActionPerformed
-      this.dispose();
-        Reportes reportes = new Reportes();
+    private void reportes1ActionPerformed(java.awt.event.ActionEvent evt) {
+        this.dispose();
+        Reportes reportes = new Reportes(this.logicaHotel);
         reportes.setVisible(true);
         reportes.setLocationRelativeTo(null);
-    }//GEN-LAST:event_reportes1ActionPerformed
+    }
 
-    private void reportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportesActionPerformed
+    private void reportesActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
-        Reportes reportes = new Reportes();
+        Reportes reportes = new Reportes(this.logicaHotel);
         reportes.setVisible(true);
         reportes.setLocationRelativeTo(null);
-    }//GEN-LAST:event_reportesActionPerformed
+    }
 
-    private void habitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_habitacionesActionPerformed
+    private void habitacionesActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
-        Habitaciones habitaciones = new Habitaciones();
+        Habitaciones habitaciones = new Habitaciones(this.logicaHotel);
         habitaciones.setVisible(true);
         habitaciones.setLocationRelativeTo(null);
-    }//GEN-LAST:event_habitacionesActionPerformed
+    }
 
-    private void reservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservaActionPerformed
+    private void reservaActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
-        // MODIFICADO: Pasamos la instancia de la lógica a la siguiente ventana.
-        Reservas reservas = new Reservas(this.logicaHotel);
-        reservas.setVisible(true);
-        reservas.setLocationRelativeTo(null);
-    }//GEN-LAST:event_reservaActionPerformed
+        // Le pasa la "memoria" actual a la siguiente ventana
+        Reservas ventanaReservas = new Reservas(this.logicaHotel);
+        ventanaReservas.setVisible(true);
+        ventanaReservas.setLocationRelativeTo(null);
+    }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -391,13 +362,13 @@ public class Menu extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Menu().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> {
+            new Menu().setVisible(true);
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
