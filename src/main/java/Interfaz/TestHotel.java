@@ -81,8 +81,7 @@ public class TestHotel {
                           " asignado a habitacion: " + habitacion1);
         
         // Check-in por posicion especifica
-        Cliente cliente2 = new Cliente("002", "Maria Garcia", "3007654321", 
-                                     LocalDate.now().plusDays(1), LocalDate.now().plusDays(5));
+        Cliente cliente2 = new Cliente("002", "Maria Garcia", "3007654321", fechaIngreso, fechaSalida);
         boolean exito2 = hotel.realizarCheckInPorPosicion(5, cliente2);
         System.out.println("Check-in habitacion 5 - Cliente: " + cliente2.getNombre() + 
                           " - Exito: " + exito2);
@@ -143,8 +142,7 @@ public class TestHotel {
         System.out.println("--- PRUEBA 4: UPDATE (ACTUALIZACION) ---");
         
         // Actualizar datos de cliente
-        Cliente clienteActualizado = new Cliente("001", "Juan Perez Actualizado", "3001234999", 
-                                               LocalDate.now(), LocalDate.now().plusDays(5));
+        Cliente clienteActualizado = new Cliente("001", "Juan Perez Actualizado", "3001234999", fechaIngreso, fechaSalida);
         boolean actualizacionExitosa = hotel.actualizarCliente(clienteActualizado);
         System.out.println("Actualizacion cliente '001': " + actualizacionExitosa);
         
@@ -380,9 +378,7 @@ public class TestHotel {
             String telefono = scanner.nextLine();
             if (telefono.isEmpty()) telefono = clienteActual.getCelular();
             
-            Cliente clienteActualizado = new Cliente(id, nombre, telefono, 
-                                                   clienteActual.getFechaIngreso(), 
-                                                   clienteActual.getFechaSalida());
+            Cliente clienteActualizado = new Cliente(id, nombre, telefono, fechaIngreso, fechaSalida);
             
             if (hotel.actualizarCliente(clienteActualizado)) {
                 System.out.println("Cliente actualizado exitosamente!");
