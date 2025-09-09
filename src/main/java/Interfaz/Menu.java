@@ -195,19 +195,19 @@ public class Menu extends javax.swing.JFrame {
 
         habDis1.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
         habDis1.setText("0");
-        getContentPane().add(habDis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 130, 30, 40));
+        getContentPane().add(habDis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 130, 30, 40));
 
         habRe.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
         habRe.setText("0");
-        getContentPane().add(habRe, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 30, 40));
+        getContentPane().add(habRe, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, 30, 40));
 
         totalVen.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
         totalVen.setText("0");
-        getContentPane().add(totalVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 130, 30, 40));
+        getContentPane().add(totalVen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 130, 30, 40));
 
         totalHab.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
         totalHab.setText("0");
-        getContentPane().add(totalHab, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 30, 40));
+        getContentPane().add(totalHab, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 30, 40));
 
         reservas1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         reservas1.setBorderPainted(false);
@@ -280,7 +280,7 @@ public class Menu extends javax.swing.JFrame {
 
         getContentPane().add(exitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 10, 30, 30));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Hotel\\src\\main\\java\\Interfaz\\Sources\\Menú Principal_1.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\USUARIO\\Documents\\NetBeansProjects\\Hotel\\src\\main\\java\\Interfaz\\Sources\\Menú Principal.png")); // NOI18N
         jLabel2.setToolTipText("");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
