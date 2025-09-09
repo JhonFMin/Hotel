@@ -25,13 +25,9 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class Menu extends javax.swing.JFrame {
 
-    // Instancia de la clase Logica para acceder a los datos del hotel.
-    private Logica logicaHotel;
+    private final Logica logicaHotel;
+    private JPanel panelGraficos;
 
-    /**
-     * Constructor por defecto: Crea una nueva instancia de la lógica. Se usa
-     * cuando la aplicación arranca por primera vez.
-     */
     public Menu() {
         setUndecorated(true);
         initComponents();
@@ -39,12 +35,10 @@ public class Menu extends javax.swing.JFrame {
         this.logicaHotel = new Logica();
         actualizarTarjetas();
         crearYMostrarGraficos();
+        // Trae los gráficos al frente
+        getContentPane().setComponentZOrder(panelGraficos, 0);
     }
 
-    /**
-     * CORREGIDO: Constructor que recibe una instancia existente de la lógica.
-     * Se usa para navegar entre ventanas sin perder los datos.
-     */
     public Menu(Logica logicaHotel) {
         setUndecorated(true);
         initComponents();
@@ -52,12 +46,14 @@ public class Menu extends javax.swing.JFrame {
         this.logicaHotel = logicaHotel;
         actualizarTarjetas();
         crearYMostrarGraficos();
+        // Trae los gráficos al frente
+        getContentPane().setComponentZOrder(panelGraficos, 0);
     }
 
     /**
      * Actualiza los valores de las tarjetas superiores con datos de la lógica.
      */
-    private void actualizarTarjetas() {
+     private void actualizarTarjetas() {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("es", "CO"));
         currencyFormatter.setMaximumFractionDigits(0);
 
@@ -69,9 +65,6 @@ public class Menu extends javax.swing.JFrame {
         totalVen.setText(ventasFormateadas);
     }
 
-    /**
-     * Crea los dos gráficos y los añade a la ventana.
-     */
     private void crearYMostrarGraficos() {
         JFreeChart pieChart = crearGraficoPastel();
         ChartPanel pieChartPanel = new ChartPanel(pieChart);
@@ -81,12 +74,12 @@ public class Menu extends javax.swing.JFrame {
         ChartPanel barChartPanel = new ChartPanel(barChart);
         barChartPanel.setOpaque(false);
 
-        JPanel panelGraficos = new JPanel(new GridLayout(1, 2, 20, 0));
+        panelGraficos = new JPanel(new GridLayout(1, 2, 20, 0));
         panelGraficos.setOpaque(false);
         panelGraficos.add(pieChartPanel);
         panelGraficos.add(barChartPanel);
 
-        getContentPane().add(panelGraficos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 1000, 300));
+        getContentPane().add(panelGraficos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 1000, 300));
     }
 
     /**
@@ -303,10 +296,10 @@ public class Menu extends javax.swing.JFrame {
     }
 
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {
-                this.dispose();
+        this.dispose();
         // Le pasa la "memoria" actual a la siguiente ventana
         Login login = new Login(this.logicaHotel);
-        login.setVisible(true); 
+        login.setVisible(true);
         login.setLocationRelativeTo(null);
     }
 
